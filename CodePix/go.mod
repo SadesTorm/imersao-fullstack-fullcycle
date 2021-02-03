@@ -1,4 +1,4 @@
-module githib.com/SadesTorm/FullCycle/imersao-fullstack-fullcycle/CodePix
+module github.com/SadesTorm/imersao-fullstack-fullcycle/CodePix
 
 go 1.15
 
