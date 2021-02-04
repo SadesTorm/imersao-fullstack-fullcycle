@@ -1,10 +1,10 @@
 package model
 
 import (
-	
-	"time"
-	"github.com/asaskevich/govalidator"
-	uuid "github.com/satori/go.uuid"
+			"time"
+
+			"github.com/asaskevich/govalidator"
+			uuid "github.com/satori/go.uuid"
 )
 
 func init() {
@@ -12,7 +12,7 @@ func init() {
 }
 
 type Account struct {
-	Base      			`valid:"required"`
+	Base      `valid:"required"`
 	OwnerName string    `gorm:"column:owner_name;type:varchar(255);not null" valid:"notnull"`
 	Bank      *Bank     `valid:"-"`
 	BankID    string    `gorm:"column:bank_id;type:uuid;not null" valid:"-"`

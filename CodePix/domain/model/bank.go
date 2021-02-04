@@ -1,27 +1,25 @@
 package model
 
 import (
-	
 	"time"
-	"github.com/asaskevich/govaLidator"
+
+	"github.com/asaskevich/govalidator"
 	uuid "github.com/satori/go.uuid"
-		
 )
 
-
-
-type Bank struct{
-	Base				`valid: required`
-	Code 	string		`json: "code" valid: "notnull"`
-	Name 	string		`json: "name" valid: "notnull"`
-
+type Bank struct {
+	Base     `valid: required`
+	Code     string     `json: "code" gorm:"type:varchar(20)" valid: "notnull"`
+	Name     string     `json: "name" gorm:"type:varchar(258)" valid: "notnull"`
+	Accounts []*Account `gorm:"ForeignKey:BankId" valid:"-"`
 }
+
 // criando metodod
 
 func (bank *Bank) isValid() error {
 
 	_, err := govalidator.ValidateStruct(bank)
-	if(err != nil){
+	if err != nil {
 		return err
 	}
 
@@ -30,7 +28,7 @@ func (bank *Bank) isValid() error {
 }
 
 //funcao
-func NewBank(code string, name string) (*Bank, error){
+func NewBank(code string, name string) (*Bank, error) {
 	bank := Bank{
 		Code: code,
 		Name: name,
@@ -39,8 +37,8 @@ func NewBank(code string, name string) (*Bank, error){
 	bank.ID = uuid.NewV4().String()
 	bank.CreatedAt = time.Now()
 
-	err:= bank.isValid()
-	if(err != nil){
+	err := bank.isValid()
+	if err != nil {
 		return nil, err
 	}
 
